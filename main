@@ -1,0 +1,58 @@
+import random
+import string
+
+# Function to generate random password
+def generate_password(length, complexity):
+    # Set up character sets
+    lowercase = string.ascii_lowercase
+    uppercase = string.ascii_uppercase
+    numbers = string.digits
+    symbols = string.punctuation
+
+    # Determine number of character sets to use
+    num_sets = 0
+    if complexity >= 1:
+        num_sets += 1  # Include lowercase letters
+    if complexity >= 2:
+        num_sets += 1  # Include uppercase letters
+    if complexity >= 3:
+        num_sets += 1  # Include numbers
+    if complexity >= 4:
+        num_sets += 1  # Include symbols
+
+    # Initialize password string
+    password = ""
+
+    # Fill password string with random characters
+    for i in range(length):
+        set_index = random.randint(0, num_sets - 1)
+        if complexity >= 1 and set_index == 0:
+            password += random.choice(lowercase)
+        elif complexity >= 2 and set_index == 1:
+            password += random.choice(uppercase)
+        elif complexity >= 3 and set_index == 2:
+            password += random.choice(numbers)
+        else:
+            password += random.choice(symbols)
+
+    # Print generated password
+    print("Generated password:", password)
+
+# Main function to get user input and call generate_password function
+def main():
+    # Get password length from user
+    length = int(input("Enter password length: "))
+
+    # Get password complexity from user
+    print("Enter password complexity (1-4):")
+    print("1 - lowercase letters only")
+    print("2 - lowercase and uppercase letters")
+    print("3 - lowercase, uppercase letters and numbers")
+    print("4 - lowercase, uppercase letters, numbers and symbols")
+    complexity = int(input())
+
+    # Generate password and print it
+    generate_password(length, complexity)
+
+if __name__ == '__main__':
+    main()
